@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Edad</title>
+</head>
+<body>
+    
+    <h2>Calcula tu edad</h2>
+    <input type="number" id="year" placeholder="Ingresa tu año de nacimiento">
+    <input type="number" id="month" placeholder="Ingresa tu mes de nacimiento">
+    <input type="text" id="day" placeholder="Ingresa tu dia de nacimeinto">
+    <button onclick="calculaEdad()">Calcular Edad</button>
+    <p id="resultado"></p>
+
+    <hr>
+
+    <h2>Elige un color</h2>
+    <button class="botones" onclick="cambiarColor('red', 'black')">Rojo</button>
+    <button class="botones" onclick="cambiarColor('blue', 'white')">Azul</button>
+    <button onclick="cambiarColor('green', 'yellow')">Verde</button>
+    <button onclick="cambiarColor('#000000', 'blue')">Negro</button>
+
+
+    <script>
+        function calculaEdad(){
+            let year = parseInt(document.getElementById("year").value);
+            let month = parseInt(document.getElementById("month").value);
+            let day = parseInt(document.getElementById("day").value);            
+
+            if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
+                const fechaActual = new Date();
+                const fechaNacimiento = new Date(year, month - 1, day);
+
+                let edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear()
+
+                if (fechaActual.getMonth() < fechaNacimiento.getMonth() || 
+                    (fechaActual.getMonth() === fechaNacimiento.getMonth() && fechaActual.getDate() < fechaNacimiento.getDate())) {
+                    edad--;
+                }
+                
+                document.getElementById("resultado").innerText = edad
+                
+            } else {
+                alert("Ingresa todos los campos")
+            }
+                        
+        }
+        
+        function cambiarColor(fondo, texto) {
+            document.body.style.color = texto;
+            document.body.style.backgroundColor = fondo;
+        }
+    </script>
+</body>
+</html>

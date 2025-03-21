@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrando JS</title>
+</head>
+<body>
+    <h1 id="miH1">Practicas de JS con HTML</h1>
+    <button id="miBoton" onclick="contarCaracteres()">Haz clic</button>
+    <p id="miParrafo">
+        Texto inicial
+    </p>
+
+    <script>
+        document.getElementById("miBoton").onclick = () => {
+            document.getElementById("miParrafo").textContent = "¡Hola desde Javascript!"
+            document.getElementById("miBoton").textContent = "El botón cambio su contenido"
+            document.getElementById("miH1").textContent = "Este título cambio desde JS"
+        };
+    </script>
+    <script src="../examen/Parcial2/operaciones_basicas.js"></script>
+</body>
+</html>
