@@ -23,6 +23,46 @@
     <button onclick="cambiarColor('#000000', 'blue')">Negro</button>
     <button onclick="cambiarColor('#FFFFFF', 'black')">Blanco</button>
 
+    <hr>
+
+    <h2>Presiona el botón</h2>
+    <button onclick="incrementar()">Clicks: <span id="contador">0</span> </button>
+
+    <hr>
+
+    <h2>Conversor de temperatura</h2>
+    <label>Celsius a fahrenheit</label>
+    <input type="number" id="celsius" placeholder="Temperatura en Celsius">
+    <button onclick="convertirCelsius()">Convertir</button>
+    <p id="gradosFarhenheit"></p>
+
+    <label>Fahrenheit a Celsius</label>
+    <input type="number" id="fahrenheit" placeholder="Temperatura en Fahrenheit">
+    <button onclick="convertirFahrenheit()">Convertir</button>
+    <p id="gradosCelsius"></p>
+
+    <hr>
+
+    <h2>Validación de formulario</h2>
+    <input type="text" id="nombreForm" placeholder="Nombre">
+    <input type="email" id="emailForm" placeholder="ejemplo@dominio.com">
+    <button onclick="validar()">Enviar</button>
+    <p id="mensaje"></p>
+
+    <hr>
+
+    <h2>Lista Dinámica de Tareas (To-Do-List)</h2>
+    <input type="text" id="tarea" placeholder="Nueva Tarea">
+    <button onclick="agregarTarea()">Agregar</button>
+    <ul id="listaTareas"></ul>
+
+    <hr>
+
+    <h2>Adivina el número</h2>
+    <input type="number" id="adivinaInput" placeholder="Ingresa un número">
+    <button onclick="adivinar()">Intentar</button>
+    <p id="pMensajeAdivinanza"></p>
+
 
     <script>
         function calculaEdad(){
@@ -53,6 +93,78 @@
             document.body.style.color = texto;
             document.body.style.backgroundColor = fondo;
         }
+
+        let contador = 0;
+        function incrementar(){
+            contador++
+            document.getElementById("contador").innerText = contador
+        }
+
+        function convertirCelsius(){
+            const celcius = document.getElementById("celsius").value;
+            if (celcius === "") {
+                document.getElementById("gradosFarhenheit").innerText = "Por favor, ingresa un valor"
+                return;
+            }
+            const fahrenheit = (celcius * 9/5) + 32;
+            document.getElementById("gradosFarhenheit").innerText = fahrenheit;
+        }
+
+        function convertirFahrenheit() {
+            const fahrenheit = document.getElementById("fahrenheit").value;
+            if (fahrenheit === "") {
+                document.getElementById("gradosCelsius").innerText = "Por favor, ingresa un valor"
+                return;
+            }
+            const celcius = (fahrenheit - 32) * 5/9;
+            document.getElementById("gradosCelsius").innerText = celcius;
+        }
+
+        function validar(){
+            const nombre = document.getElementById("nombreForm").value;
+            const email = document.getElementById("emailForm");
+            const correo = email.value;
+            let mensaje = document.getElementById("mensaje");
+            mensaje.style.color = 'red'
+
+            if (nombre.trim() === "" || correo.trim() === "") {
+                mensaje.innerHTML = "Todos los campos son obligatorios"
+                return;
+            }
+
+            if (!email.checkValidity()) {
+                mensaje.innerHTML = "Por favor, ingresa un correo válido"
+                return;
+            }
+
+            mensaje.style.color = 'green';
+            mensaje.innerHTML = "Formulario enviado correctamente";
+        }
+
+        function agregarTarea() {
+            const tareaInput = document.getElementById("tarea");
+            let tareaTexto = tareaInput.value
+            if (tareaTexto !== "") {
+                const li = document.createElement("li");
+                li.innerText = tareaTexto;
+                li.onclick = (event) => event.target.remove();
+                document.getElementById("listaTareas").appendChild(li);
+                tareaInput.value = "";
+            }
+        }
+
+        const numeroSecreto = Math.floor(Math.random() * 100) + 1
+        function adivinar() {
+            const intento = parseInt(document.getElementById("adivinaInput").value);
+            if (intento < numeroSecreto) {
+                document.getElementById("pMensajeAdivinanza").innerText = "Intenta con un número más alto";
+            } else if(intento > numeroSecreto) {
+                document.getElementById("pMensajeAdivinanza").innerText = "Intenta con un número más bajo";
+            } else {
+                document.getElementById("pMensajeAdivinanza").innerText = "¡Felicidades! Adivinaste el número"
+            }
+        }
+
     </script>
 </body>
 </html>
